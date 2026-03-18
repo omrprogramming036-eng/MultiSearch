@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محرك بحث متعدد المنصات</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+      background: rgba(255,255,255,0.05);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #00c6ff;
+      color: black;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0072ff;
+      color: white;
+    }
+
+    .results {
+      margin-top: 25px;
+      text-align: right;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: #00c6ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .note {
+      margin-top: 15px;
+      font-size: 13px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>🔎 ابحث في يوتيوب / تيك توك / فيسبوك</h1>
+
+  <input type="text" id="searchInput" placeholder="اكتب اسم او وصف الفيديو او الصورة...">
+  <br>
+  <button onclick="search()">بحث</button>
+
+  <div class="results" id="results"></div>
+
+  <div class="note">
+    ⚠️ يتم فتح النتائج من المواقع الأصلية
+  </div>
+</div>
+
+<script>
+
+function search() {
+  const query = document.getElementById('searchInput').value.trim();
+  const results = document.getElementById('results');
+
+  if (!query) {
+    results.innerHTML = '<p>❌ اكتب شيء للبحث!</p>';
+    return;
+  }
+
+  const youtube = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+  const tiktok = `https://www.tiktok.com/search?q=${encodeURIComponent(query)}`;
+  const facebook = `https://www.facebook.com/search/top?q=${encodeURIComponent(query)}`;
+
+  results.innerHTML = `
+    <div class="card">
+      <h3>🔴 يوتيوب</h3>
+      <a href="${youtube}" target="_blank">فتح النتائج</a>
+    </div>
+
+    <div class="card">
+      <h3>🎵 تيك توك</h3>
+      <a href="${tiktok}" target="_blank">فتح النتائج</a>
+    </div>
+
+    <div class="card">
+      <h3>📘 فيسبوك</h3>
+      <a href="${facebook}" target="_blank">فتح النتائج</a>
+    </div>
+  `;
+}
+
+</script>
+
+</body>
+</html>
